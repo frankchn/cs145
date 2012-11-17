@@ -1,0 +1,4 @@
+IndexIgnore *
+
+RewriteEngine on
+RewriteRule ^(.*)$	index.php?route=$1 [L,QSA]

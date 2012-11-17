@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="auctionbase">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>CS145 AuctionBase</title>
+
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/angular.min.js"></script>
+		<script src="assets/js/modernizr.custom.28468.js"></script>
+		<script src="assets/js/jquery.cslider.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+		<script src="assets/js/init.js"></script>
+
+		<script src="app/modules.js"></script>
+		<script src="app/app.js"></script>
+		<script src="app/controllers.js"></script>
+
+		<link href="assets/css/main.css" rel="stylesheet">
+		<link href="assets/css/bootstrap.css" rel="stylesheet" media="screen">
+		<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="assets/css/daslider.css" rel="stylesheet">
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="span4">
+						<img src="assets/img/auctionbase_logo.png" />
+					</div>
+					<div class="span8">
+						<div class="navbar">
+							<div class="navbar_inner">
+								<ul class="nav">
+									<li class="navbar_active"><a href="#">Home</a></li>
+									<li><a href="#">Search</a></li>
+									<li><a href="#">Items</a></li>
+									<li><a href="#">Categories</a></li>
+									<li><a href="#">Login</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div ng-view></div>
+
+		<div class="footer" ng-controller="CurrentTimeController">
+			<div class="current_time">Current Time: {{current_time}} (Change)</div>
+			<div class="credits">This is a website for the Fall 2012 version of Stanford <a target="_new" href="http://cs145.stanford.edu/">CS145</a> built by <a target="_new" href="http://www.stanford.edu/~frankchn">Frank Chen</a>. Built with PHP, SQLite, Bootstrap and AngularJS. <a href="#readme">Click here for README / Instructions / Credits</a>.</div>
+		</div>
+	</body>
+</html>
