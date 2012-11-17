@@ -1,11 +1,10 @@
-function FeaturedCategoriesController($scope) {
-	$scope.categories = [
-		{"categoryname": "Computers"},
-		{"categoryname": "Glassware"},
-		{"categoryname": "Books"},
-		{"categoryname": "Electronics"},
-		{"categoryname": "Games"}
-	];
+function FeaturedCategoriesController($scope, Categories) {
+	$scope.categories = Categories.query({top: 6});
+	$scope.orderProp = 'CategoryID';
+}
+
+function AllCategoriesController($scope, Categories) {
+	$scope.categories = Categories.query();
 }
 
 function CurrentTimeController($scope) {

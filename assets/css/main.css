@@ -1,5 +1,5 @@
 header {
-	height:50px;
+	height:64px;
 }
 
 .navbar {
@@ -12,7 +12,7 @@ header {
 .nav > li {
 	height:40px;
 	display:list-item;
-	line-height:20px;
+	line-height:35px;
 	border-top:4px solid white;
 }
 
@@ -41,10 +41,17 @@ li.navbar_active {
 }
 
 .category_tiles {
+	text-align:center;
+	padding-top:11px;
+}
+
+.category_title {
 	font-size:18px;
 	font-weight:bold;
-	text-align:center;
-	padding-top:21px;
+}
+
+.category_item_count {
+	font-size:12px;
 }
 
 .footer {

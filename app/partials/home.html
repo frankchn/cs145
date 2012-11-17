@@ -9,10 +9,18 @@
 		</div>
 
 		<div class="da-slide">
-			<h2>American Art</h2>
-			<p>Check out some of our most exquisite art pieces in American Art.</p>
+			<h2>Collectibles</h2>
+			<p>Check out some of our most exquisite collectible pieces in the new Collectibles category.</p>
 			<div class="da-img">
 				<img src="assets/img/2.png" />
+			</div>
+		</div>
+
+		<div class="da-slide">
+			<h2>Clothing &amp; Accessories</h2>
+			<p>Want a new look for the holiday season? Visit our Clothing &amp; Accessories section today!</p>
+			<div class="da-img">
+				<img src="assets/img/3.png" />
 			</div>
 		</div>
 
@@ -37,10 +45,11 @@ $('#da-slider').cslider({
 <div style="clear:both" class="container">
 	<div class="row">
 		<div ng-controller="FeaturedCategoriesController" class="span3">
-			<h3>Hot Categories</h3>
+			<h3>Popular Categories</h3>
 			<div ng-repeat="category in categories" class="category">
 				<div class="category_tiles">
-				{{category.categoryname}}
+					<div class="category_title"><a href="#/category/{{category.CategoryID}}">{{category.CategoryName}}</a></div>
+					<div class="category_item_count">{{category.NumberOfItems}} items</div>
 				</div>
 			</div>
 		</div>

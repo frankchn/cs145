@@ -1,0 +1,40 @@
+<div ng-controller="AllCategoriesController" style="clear:both" class="container">
+	<div class="row">
+		<div class="span12">
+			<h3>Categories</h3>
+			<p>You can find a listing of all our categories of items here.
+				Click on a category to see all items in that category. 
+				You can also search names of the categories and sort them by the number of items
+				within each category. Have fun bidding!</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<div style="padding:10px;text-align:center">
+				Search by
+				<input style="width:250px" type="text" ng-model="search" class="search-query" placeholder="Search"> and Sort by
+				<select ng-model="orderProp">
+					<option value="CategoryID">Category ID</option>
+					<option value="CategoryName">Category Name</option>
+					<option value="NumberOfItems">No. of Items</option>
+				</select>
+			</div>
+			<table class="table table-striped table-hover table-bordered">
+				<thead>
+					<tr>
+						<th style="text-align:right">Category ID</th>
+						<th>Category Name</th>
+						<th style="text-align:right">No. of Items</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="category in categories | filter:search | orderBy:orderProp">
+						<td style="text-align:right">{{category.CategoryID}}</td>
+						<td><a href="#/category/{{category.CategoryID}}">{{category.CategoryName}}</a></td>
+						<td style="text-align:right">{{category.NumberOfItems}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
