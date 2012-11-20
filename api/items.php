@@ -77,6 +77,10 @@ switch($_SERVER['REQUEST_METHOD']) {
 			$return[] = $row;
 		}
 
+		if(isset($_GET['itemid']) && !empty($_GET['itemid'])) {
+			$return = $return[0];
+		}
+
 		break;
 	case 'POST':
 

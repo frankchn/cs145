@@ -39,6 +39,6 @@ function ItemListController($scope, $routeParams, Items, Categories) {
 }
 
 function ItemController($scope, $routeParams, Items, Bids) {
-	$scope.items = Items.query({itemid: $routeParams.ItemID, closed: 1});
+	$scope.item = Items.get({itemid: $routeParams.ItemID, closed: 1});
 	$scope.bids = Bids.query({itemid: $routeParams.ItemID});
 }

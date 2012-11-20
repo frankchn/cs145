@@ -1,57 +1,55 @@
 <div style="clear:both;margin-top:20px;" ng-controller="ItemController" class="container">
-	<div ng-repeat="item in items">
-		<div class="row">
-			<div class="span3">
-				<img src="http://placehold.it/270x300">
+	<div class="row">
+		<div class="span3">
+			<img src="http://placehold.it/270x300">
+		</div>
+		<div class="span9">
+			<h3>{{item.Name}}</h3>
+			<blockquote>
+				{{item.Description}}
+			</blockquote>
+			<div class="item_current_price">
+				Current Price: <span>${{item.CurrentPrice}}</span>
 			</div>
-			<div class="span9">
-				<h3>{{item.Name}}</h3>
-				<blockquote>
-					{{item.Description}}
-				</blockquote>
-				<div class="item_current_price">
-					Current Price: <span>${{item.CurrentPrice}}</span>
-				</div>
-				<div ng-show="item.BuyPrice != ''" class="item_buy_price">
-					Buy It Now: <span>${{item.BuyPrice}}</span>
-				</div>
-				<div style="margin-top:20px;">
-					Open: {{item.Started}}<br>Close: {{item.Ends}}
-				</div>
+			<div ng-show="item.BuyPrice != ''" class="item_buy_price">
+				Buy It Now: <span>${{item.BuyPrice}}</span>
+			</div>
+			<div style="margin-top:20px;">
+				Open: {{item.Started}}<br>Close: {{item.Ends}}
 			</div>
 		</div>
-		<div class="row" style="margin-top:20px;">
-			<div class="span3">
-				<h4>Categories</h4>
+	</div>
+	<div class="row" style="margin-top:20px;">
+		<div class="span3">
+			<h4>Categories</h4>
+		</div>
+		<div class="span6">
+			<h4>Bid History</h4>
+			<table class="table table-condensed table-bordered">
+				<thead>
+					<tr>
+						<th>User ID</th>
+						<th>Time</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="bid in bids">
+						<td>{{bid.UserID}}</td>
+						<td>{{bid.Time}}</td>
+						<td>${{bid.Amount}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div ng-show="item.Active == 1" style="text-align:center">
+				<form class="form-search">
+					<input type="text" class="input-large search-query">
+					<button type="submit" class="btn">Bid!</button>
+				</form>
 			</div>
-			<div class="span6">
-				<h4>Bid History</h4>
-				<table class="table table-condensed table-bordered">
-					<thead>
-						<tr>
-							<th>User ID</th>
-							<th>Time</th>
-							<th>Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="bid in bids">
-							<td>{{bid.UserID}}</td>
-							<td>{{bid.Time}}</td>
-							<td>${{bid.Amount}}</td>
-						</tr>
-					</tbody>
-				</table>
-				<div ng-show="item.Active == 1" style="text-align:center">
-					<form class="form-search">
-						<input type="text" class="input-large search-query">
-						<button type="submit" class="btn">Bid!</button>
-					</form>
-				</div>
-			</div>
-			<div class="span3">
-				<h4>Seller Information</h4>
-			</div>
+		</div>
+		<div class="span3">
+			<h4>Seller Information</h4>
 		</div>
 	</div>
 </div>
