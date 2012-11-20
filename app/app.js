@@ -6,5 +6,6 @@ angular.module('auctionbase', ['abServices']).
 		when('/readme', {templateUrl: 'app/partials/readme.html'}).
 		when('/login', {templateUrl: 'app/partials/login.html'}).
 		when('/item', {templateUrl: 'app/partials/item.html'}).
+		when('/item/:ItemID', {templateUrl: 'app/partials/item_individual.html'}).
 		otherwise({redirectTo: '/'});
 	}]);

@@ -31,4 +31,15 @@ function ($resource) {
 			isArray: true
 		}
 	});
+})
+.factory(
+'Bids',
+function ($resource) {
+	return $resource(
+		'api/bids.php', {}, {
+		query: {
+			method: 'GET',
+			isArray: true
+		}
+	});
 });

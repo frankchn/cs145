@@ -59,7 +59,7 @@ $('#da-slider').cslider({
 				<div ng-repeat="item in items" class="span3">
 					<div class="es_box">
 						<div class="es_title">
-							<strong>{{item.Name}}</strong>
+							<strong><a href="#/item/{{item.ItemID}}">{{item.Name}}</a></strong>
 						</div>
 						<div class="es_price">
 							Currently ${{item.CurrentPrice}}

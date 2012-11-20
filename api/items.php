@@ -12,6 +12,8 @@ if(isset($_GET['numitems'])) {
 	$numitems = 50;
 }
 
+$current_time = strtotime(get_current_time());
+
 switch($_SERVER['REQUEST_METHOD']) {
 	case 'GET':
 		$sql = 'SELECT Items.*, MIN(Bids.Amount), MAX(Bids.Amount) FROM Items LEFT JOIN Bids ON (Items.ItemID = Bids.ItemID) WHERE 1 ';
@@ -20,8 +22,12 @@ switch($_SERVER['REQUEST_METHOD']) {
 			$sql .= ' AND (Name LIKE "%'.$_GET['search'].'%" OR Description LIKE "%'.$_GET['search'].'%") ';
 		}
 
-		if(!isset($_GET['closed']) || $_GET['closed'] == '1') {
+		if(!isset($_GET['closed']) || ($_GET['closed'] != 1 && $_GET['closed'] != 'true')) {
 			$sql .= 'AND Ends >= "'.get_current_time().'" ';
+		}
+
+		if(isset($_GET['itemid']) && !empty($_GET['itemid'])) {
+			$sql .= 'AND Items.ItemID = "'.$_GET['itemid'].'" ';
 		}
 
 		$having = false;
@@ -54,7 +60,15 @@ switch($_SERVER['REQUEST_METHOD']) {
 				$row['CurrentPrice'] = $row['MAX(Bids.Amount)'];
 
 			$row['CurrentPrice'] = sprintf("%.2f", $row['CurrentPrice']);
-			$row['Ending'] = duration(strtotime($row['Ends']) - strtotime(get_current_time()));
+			$row['Ending'] = duration(strtotime($row['Ends']) - $current_time);
+
+			$time_end = strtotime($row['Ends']);
+			$time_start = strtotime($row['Started']);
+
+			if($current_time < $time_end && $current_time > $time_start && $row['CurrentPrice'] < $row['BuyPrice'])
+				$row['Active'] = 1;
+			else
+				$row['Active'] = 0;
 
 			$return[] = $row;
 		}
