@@ -10,6 +10,12 @@
 				<h4>Filter Items</h4>
 				<form>
 					<fieldset>
+						<div ng-show="CategoryID != -1">
+							<label>Category</label>
+							<div ng-repeat="category in categories">
+								<em>{{category.CategoryName}}</em>
+							</div>
+						</div>
 						<div>
 							<label>Keyword</label>
 							<input ng-model="keyword" type="text" placeholder="e.g. Camera">
@@ -31,6 +37,7 @@
 						<div>
 							<label>Results to Show</label>
 							<select ng-model="numitems">
+								<option>20</option>
 								<option>50</option>
 								<option>100</option>
 								<option>200</option>

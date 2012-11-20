@@ -16,7 +16,7 @@ $current_time = strtotime(get_current_time());
 
 switch($_SERVER['REQUEST_METHOD']) {
 	case 'GET':
-		$sql = 'SELECT Items.*, MIN(Bids.Amount), MAX(Bids.Amount) FROM Items LEFT JOIN Bids ON (Items.ItemID = Bids.ItemID) WHERE 1 ';
+		$sql = 'SELECT Items.*, MIN(Bids.Amount), MAX(Bids.Amount) FROM Items LEFT JOIN Bids ON (Items.ItemID = Bids.ItemID) LEFT JOIN ItemCategories ON (Items.ItemID = ItemCategories.ItemID) WHERE 1 ';
 
 		if(isset($_GET['search']) && !empty($_GET['search'])) {
 			$sql .= ' AND (Name LIKE "%'.$_GET['search'].'%" OR Description LIKE "%'.$_GET['search'].'%") ';
@@ -28,6 +28,10 @@ switch($_SERVER['REQUEST_METHOD']) {
 
 		if(isset($_GET['itemid']) && !empty($_GET['itemid'])) {
 			$sql .= 'AND Items.ItemID = "'.$_GET['itemid'].'" ';
+		}
+
+		if(isset($_GET['category']) && !empty($_GET['category']) && $_GET['category'] != -1) {
+			$sql .= 'AND ItemCategories.CategoryID = '.$_GET['category'].' ';
 		}
 
 		$having = false;
