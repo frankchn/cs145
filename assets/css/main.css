@@ -68,3 +68,19 @@ li.navbar_active {
 	font-size:10px;
 	text-align:center;
 }
+
+.filter_panel {
+	background-color:#d9e1fa;
+	box-shadow:inset 0 0 2px #7b9af6;
+	border-radius:10px;
+}
+
+.filter_panel_inner {
+	padding-left:15px;
+}
+
+.es_box {
+	padding:5px;
+	margin-bottom:10px;
+	box-shadow:inset 0 0 2px #7b9af6;
+}

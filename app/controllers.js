@@ -7,17 +7,24 @@ function AllCategoriesController($scope, Categories) {
 	$scope.categories = Categories.query();
 }
 
-function CurrentTimeController($scope) {
-	$scope.current_time = 'YYYY-MM-DD HH:MM:SS';
+function CurrentTimeController($scope, Time) {
+	$scope.current_time = Time.get();
 }
 
-function EndingSoonController($scope) {
-	$scope.items = [
-		{"name": "Auction 1", "description": "Lorem Ipsum dolor sit amet."},
-		{"name": "Auction 2", "description": "Lorem Ipsum dolor sit amet."},
-		{"name": "Auction 3", "description": "Lorem Ipsum dolor sit amet."},
-		{"name": "Auction 4", "description": "Lorem Ipsum dolor sit amet."},
-		{"name": "Auction 5", "description": "Lorem Ipsum dolor sit amet."},
-		{"name": "Auction 6", "description": "Lorem Ipsum dolor sit amet."},
-	];
+function EndingSoonController($scope, Items) {
+	$scope.items = Items.query({numitems: 15});
+}
+
+function ItemListController($scope, Items) {
+	$scope.items = Items.query();
+	$scope.numitems = 50;
+
+	$scope.update = function() {
+		opt_search = $scope.keyword != undefined ? $scope.keyword : '';
+		opt_min = $scope.minprice != undefined ? $scope.minprice : '';
+		opt_max = $scope.maxprice != undefined ? $scope.maxprice : '';
+		opt_items = $scope.numitems != undefined ? $scope.numitems : '';
+
+		$scope.items = Items.query({search: opt_search, min: opt_min, max: opt_max, numitems: opt_items});
+	};
 }

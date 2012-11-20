@@ -36,9 +36,9 @@
 								<ul class="nav">
 									<li class="navbar_active"><a href="#">Home</a></li>
 									<li><a href="#">Search</a></li>
-									<li><a href="#">Items</a></li>
+									<li><a href="#/item">Items</a></li>
 									<li><a href="#/category">Categories</a></li>
-									<li><a href="#">Login</a></li>
+									<li><a href="#/login">Login</a></li>
 								</ul>
 							</div>
 						</div>
@@ -50,7 +50,7 @@
 		<div ng-view></div>
 
 		<div class="footer" ng-controller="CurrentTimeController">
-			<div class="current_time">Current Time: {{current_time}} (Change)</div>
+			<div class="current_time">Current Time: {{current_time.time}} (Change)</div>
 			<div class="credits">This is a website for the Fall 2012 version of Stanford <a target="_new" href="http://cs145.stanford.edu/">CS145</a> built by <a target="_new" href="http://www.stanford.edu/~frankchn">Frank Chen</a>. Built with PHP, SQLite, Bootstrap and AngularJS. <a href="#readme">Click here for README / Instructions / Credits</a>.</div>
 		</div>
 	</body>

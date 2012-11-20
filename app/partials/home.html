@@ -57,7 +57,17 @@ $('#da-slider').cslider({
 			<h3>Auctions Ending Soon!</h3>
 			<div class="row">
 				<div ng-repeat="item in items" class="span3">
-					<strong>{{item.name}}</strong> - {{item.description}}
+					<div class="es_box">
+						<div class="es_title">
+							<strong>{{item.Name}}</strong>
+						</div>
+						<div class="es_price">
+							Currently ${{item.CurrentPrice}}
+						</div>
+						<div class="es_ending">
+							Closing in {{item.Ending}}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

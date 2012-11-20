@@ -1,0 +1,58 @@
+<div ng-controller="ItemListController" style="clear:both" class="container">
+	<div class="row">
+		<div class="span12">
+			<h3>List of Auction Items</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3 filter_panel">
+			<div class="filter_panel_inner">
+				<h4>Filter Items</h4>
+				<form>
+					<fieldset>
+						<div>
+							<label>Keyword</label>
+							<input ng-model="keyword" type="text" placeholder="e.g. Camera">
+						</div>
+						<div>
+							<label>Current Price (min)</label>
+							<input ng-model="minprice" type="text" placeholder="0.00">
+						</div>
+						<div>
+							<label>Current Price (max)</label>
+							<input ng-model="maxprice" type="text" placeholder="100000000.00">
+						</div>
+						<div>
+							<label>Results to Show</label>
+							<select ng-model="numitems">
+								<option>50</option>
+								<option>100</option>
+								<option>200</option>
+								<option value="10000000">Everything (slow!)</option>
+							</select>
+						</div>
+						<button ng-click="update()" type="submit" class="btn">Search</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		<div class="span9">
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Item Name</th>
+						<th>Auction Ending</th>
+						<th>Current Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items">
+						<td><a href="#/item/{{item.ItemID}}">{{item.Name}}</a></td>
+						<td>{{item.Ends}}</td>
+						<td>${{item.CurrentPrice}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
