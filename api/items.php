@@ -22,6 +22,8 @@ switch($_SERVER['REQUEST_METHOD']) {
 			$sql .= ' AND (Name LIKE "%'.$_GET['search'].'%" OR Description LIKE "%'.$_GET['search'].'%") ';
 		}
 
+		$sql .= 'AND Started <= "'.get_current_time().'" ';
+
 		if(!isset($_GET['closed']) || ($_GET['closed'] != 1 && $_GET['closed'] != 'true')) {
 			$sql .= 'AND Ends >= "'.get_current_time().'" ';
 		}

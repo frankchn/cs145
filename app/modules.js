@@ -1,4 +1,4 @@
-angular.module('abServices', ['ngResource'])
+angular.module('abServices', ['ngResource', 'ngCookies'])
 .factory(
 'Categories',
 function ($resource) {

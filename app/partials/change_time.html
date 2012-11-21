@@ -1,0 +1,12 @@
+<div ng-controller="CurrentTimeController" style="clear:both" class="container">
+	<div class="row">
+		<div class="span12">
+			<h3>Time Controls</h3>
+			<p>You can change the time of the auction base website here.</p>
+			<form class="form-inline">
+				<input ng-model="current_time.time" type="text" class="span3" placeholder="YYYY-MM-DD HH:MM:SS">
+				<button ng-click="update()" class="btn">Change</button>
+			</form>
+		</div>
+	</div>
+</div>

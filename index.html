@@ -9,6 +9,7 @@
 		<script src="assets/js/jquery.js"></script>
 		<script src="assets/js/angular.min.js"></script>
 		<script src="assets/js/angular-resource.js"></script>
+		<script src="assets/js/angular-cookies.js"></script>
 		<script src="assets/js/modernizr.custom.28468.js"></script>
 		<script src="assets/js/jquery.cslider.js"></script>
 		<script src="assets/js/bootstrap.js"></script>
@@ -50,7 +51,15 @@
 		<div ng-view></div>
 
 		<div class="footer" ng-controller="CurrentTimeController">
-			<div class="current_time">Current Time: {{current_time.time}} (Change)</div>
+			<div class="current_time">
+				<form class="form-inline">
+					<div id="changetime_control" class="control-group">
+						Current Time: 
+						<input ng-model="current_time.time" type="text" class="span3" placeholder="YYYY-MM-DD HH:MM:SS">
+						<button ng-click="update()" class="btn">Change</button>
+					</div>
+				</form>
+			</div>
 			<div class="credits">This is a website for the Fall 2012 version of Stanford <a target="_new" href="http://cs145.stanford.edu/">CS145</a> built by <a target="_new" href="http://www.stanford.edu/~frankchn">Frank Chen</a>. Built with PHP, SQLite, Bootstrap and AngularJS. <a href="#readme">Click here for README / Instructions / Credits</a>.</div>
 		</div>
 	</body>

@@ -7,8 +7,15 @@ function AllCategoriesController($scope, Categories) {
 	$scope.categories = Categories.query();
 }
 
-function CurrentTimeController($scope, Time) {
+function CurrentTimeController($scope, $route, Time) {
 	$scope.current_time = Time.get();
+
+	$scope.update = function() {
+		$scope.current_time.$save();
+		$('#changetime_control').addClass('success');
+		setTimeout("$('#changetime_control').removeClass('success');", 5000);
+		$route.reload();
+	}
 }
 
 function EndingSoonController($scope, Items) {

@@ -7,4 +7,7 @@ try {
 	die("SQLite connection failed: " . $e->getMessage());
 }
 
+$raw_data = file_get_contents("php://input");
+$json_data = json_decode($raw_data);
+
 header('Content-type: application/json');

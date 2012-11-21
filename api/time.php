@@ -6,10 +6,10 @@ require('init.inc.php');
 
 $return = array();
 
-if(isset($_POST) && count($_POST) > 0) {
-	// POST request
-} else {
-	$return['time'] = get_current_time();
-}
+if(!is_null($json_data)) {
+	$time = date("Y-m-d H:i:s", strtotime($json_data->time));
+	$db->query("UPDATE Time SET cur_time = '".$time."'");
+} 
 
+$return['time'] = get_current_time();
 echo json_encode($return);
