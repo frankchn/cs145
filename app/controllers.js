@@ -111,7 +111,6 @@ function ItemController($scope, $routeParams, $cookies, Items, Bids, Users, Cate
         imageSearch.setSearchCompleteCallback(this, function() {
         	if (imageSearch.results && imageSearch.results.length > 0) {
         		result = imageSearch.results[0];
-        		console.log(result);
         		$('#item_image').attr('src', result.url);
         	}
         }, null);
