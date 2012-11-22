@@ -8,6 +8,6 @@ try {
 }
 
 $raw_data = file_get_contents("php://input");
-$json_data = json_decode($raw_data);
+$json_data = json_decode($raw_data, true);
 
 header('Content-type: application/json');

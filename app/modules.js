@@ -42,4 +42,15 @@ function ($resource) {
 			isArray: true
 		}
 	});
+})
+.factory(
+'Users',
+function ($resource) {
+	return $resource(
+		'api/users.php', {}, {
+		login: {
+			method: 'POST',
+			params: {login: 1}
+		}
+	});
 });

@@ -71,7 +71,7 @@ switch($_SERVER['REQUEST_METHOD']) {
 			$time_end = strtotime($row['Ends']);
 			$time_start = strtotime($row['Started']);
 
-			if($current_time < $time_end && $current_time > $time_start && $row['CurrentPrice'] < $row['BuyPrice'])
+			if($current_time < $time_end && $current_time > $time_start && (empty($row['BuyPrice']) || $row['CurrentPrice'] < $row['BuyPrice']))
 				$row['Active'] = 1;
 			else
 				$row['Active'] = 0;

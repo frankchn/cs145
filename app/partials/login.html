@@ -1,18 +1,29 @@
-<div style="clear:both" class="container">
+<div ng-controller="LoginController" style="clear:both" class="container">
 	<div class="row">
 		<div class="span6">
-			<h3>Login</h3>
-			<p>You can login to Auctionbase as any existing user. The username will be the same
-			   as the password.</p>
-			<form method="post">
-				<div>
-					<input type="text" placeholder="Username" name="username" id="username">
-					<input type="password" placeholder="Password" name="password" id="password">
-				</div>
-				<div>
-					<input class="btn" type="submit" name="Login">
-				</div>
-			</form>
+			<div id="logincontainer">
+				<h3>Login</h3>
+				<div style="margin-bottom:15px;">{{current_status}}</div>
+				<p>You can login to Auctionbase as any existing user. The password is the same as the username.</p>
+				<form ng-submit="login()">
+					<div id="loginerror" class="hide alert alert-error">
+						<strong>Wrong Username/Password:</strong> You have entered a wrong username and password combination. Please check your username and password and try again.
+					</div>
+					<div id="logincontrol" class="control-group">
+						<div>
+							<input ng-model="username" type="text" placeholder="Username" name="username" id="username">
+							<input ng-model="password" type="password" placeholder="Password" name="password" id="password">
+						</div>
+						<div>
+							<button ng-click="login()" class="btn">Login</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div id="loginsuccess" class="hide">
+				<h3>Login</h3>
+				<p>Congratulations! You have logged into our system successfully.</p>
+			</div>
 		</div>
 		<div class="span6">
 			<h3>Registration</h3>

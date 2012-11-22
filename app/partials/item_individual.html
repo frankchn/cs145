@@ -41,11 +41,25 @@
 					</tr>
 				</tbody>
 			</table>
-			<div ng-show="item.Active == 1" style="text-align:center">
-				<form class="form-search">
-					<input type="text" class="input-large search-query">
+			<div ng-show="item.Active == 1 && UserID != ''" style="text-align:center">
+				<p>{{user_status}}</p>
+				<form class="form-search" ng-submit="submit_bid()">
+					<div class="input-prepend input-append">
+						<span class="add-on">$</span>
+						<input type="text" style="text-align:right" ng-model="new_bid" class="input-large search-query">
+						&nbsp;
+					</div>
 					<button type="submit" class="btn">Bid!</button>
 				</form>
+				<div id="error_bidinvalid" class="biderror hide alert alert-error">
+				  <strong>Error</strong> Your bid amount is invalid. It is not a number.
+				</div>
+				<div id="error_bidtoolow" class="biderror hide alert alert-error">
+				  <strong>Error</strong> Your bid amount is too low. It must be at least {{item.CurrentPrice}}.
+				</div>
+				<div id="error_okay" class="biderror hide alert alert-success">
+				  <strong>Success</strong> Your bid is successful.
+				</div>
 			</div>
 		</div>
 		<div class="span3">

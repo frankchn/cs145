@@ -1,13 +1,13 @@
-function FeaturedCategoriesController($scope, Categories) {
+function FeaturedCategoriesController($scope, $cookies, Categories) {
 	$scope.categories = Categories.query({top: 6});
 	$scope.orderProp = 'CategoryID';
 }
 
-function AllCategoriesController($scope, Categories) {
+function AllCategoriesController($scope, $cookies, Categories) {
 	$scope.categories = Categories.query();
 }
 
-function CurrentTimeController($scope, $route, Time) {
+function CurrentTimeController($scope, $cookies, $route, Time) {
 	$scope.current_time = Time.get();
 
 	$scope.update = function() {
@@ -18,14 +18,34 @@ function CurrentTimeController($scope, $route, Time) {
 	}
 }
 
-function EndingSoonController($scope, Items) {
+function LoginController($scope, $route, $cookies, Users) {
+	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
+		$scope.current_status = "You are not currently logged in as any user.";
+	} else {
+		$scope.current_status = "You are currently logged in as " + $cookies.auctionbase_user + ".";
+	}
+
+	$scope.login = function() {
+		var x = Users.login({UserID: $scope.username, Password: $scope.password}, function() {
+			$('#logincontrol').addClass('success');
+			$('#logincontainer').hide();
+			$('#loginsuccess').show();
+		}, function() {
+			$('#logincontrol').addClass('error');
+			$('#loginerror').show();
+		});
+		$route.reload();
+	}
+}
+
+function EndingSoonController($scope, $cookies, Items) {
 	$scope.items = Items.query({numitems: 15});
 }
 
-function ItemListController($scope, $routeParams, Items, Categories) {
+function ItemListController($scope, $routeParams, $cookies, Items, Categories) {
 	$scope.CategoryID = -1;
 
-	if($routeParams.CategoryID !== undefined) {
+	if(typeof $routeParams.CategoryID != "undefined") {
 		$scope.CategoryID = $routeParams.CategoryID;
 		$scope.categories = Categories.query({category: $scope.CategoryID});
 	}
@@ -45,7 +65,33 @@ function ItemListController($scope, $routeParams, Items, Categories) {
 	};
 }
 
-function ItemController($scope, $routeParams, Items, Bids) {
+function ItemController($scope, $routeParams, $cookies, Items, Bids) {
+	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
+		$scope.user_status = "You are not currently logged in as any user.";
+		$scope.UserID = '';
+	} else {
+		$scope.user_status = "You are currently logged in as " + $cookies.auctionbase_user + ".";
+		$scope.UserID = $cookies.auctionbase_user;
+	}
+
 	$scope.item = Items.get({itemid: $routeParams.ItemID, closed: 1});
 	$scope.bids = Bids.query({itemid: $routeParams.ItemID});
+
+	$scope.submit_bid = function() {
+		$('.biderror').hide();
+
+		if(isNaN($scope.new_bid)) {
+			$('#error_bidinvalid').show();
+			return false;
+		}
+
+		Bids.save({ItemID: $scope.item.ItemID, Amount: $scope.new_bid}, function() {
+			$('#error_okay').show();
+		}, function() {
+			$('#error_bidtoolow').show();
+		});
+
+		$scope.item = Items.get({itemid: $routeParams.ItemID, closed: 1});
+		$scope.bids = Bids.query({itemid: $routeParams.ItemID});
+	}
 }
