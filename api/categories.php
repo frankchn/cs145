@@ -14,6 +14,10 @@ if(isset($_POST) && count($_POST) > 0) {
 		$where .= 'AND Categories.CategoryID = '.$_GET['category'];
 	}
 
+	if(isset($_GET['itemid']) && !empty($_GET['itemid'])) {
+		$where .= 'AND ItemCategories.ItemID = '.$_GET['itemid'];
+	}
+
 	if(isset($_GET['top']) && !empty($_GET['top'])) {
 		$top = (int)$_GET['top'];
 		$sql = 'SELECT *, COUNT(*) FROM Categories NATURAL JOIN ItemCategories '.$where.' GROUP BY CategoryID ORDER BY COUNT(*) DESC LIMIT '.$top;

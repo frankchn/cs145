@@ -18,6 +18,30 @@ function CurrentTimeController($scope, $cookies, $route, Time) {
 	}
 }
 
+function UserSearchController($scope, $route, $cookies, Users) {
+	$scope.numitems = 20;
+	$scope.userid = '';
+	$scope.minrep = '';
+	$scope.maxrep = '';
+	$scope.location = '';
+	$scope.country = '';
+	$scope.orderby = 'UserID ASC';
+
+	$scope.search = function() {
+		$scope.users = Users.query({
+			UserIDLike: $scope.userid,
+			MinRep: $scope.minrep,
+			MaxRep: $scope.maxrep,
+			LocationLike: $scope.location,
+			CountryLike: $scope.country,
+			numitems: $scope.numitems,
+			orderby: $scope.orderby
+		});
+	}
+
+	$scope.search();	
+}
+
 function LoginController($scope, $route, $cookies, Users) {
 	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
 		$scope.current_status = "You are not currently logged in as any user.";
@@ -65,7 +89,7 @@ function ItemListController($scope, $routeParams, $cookies, Items, Categories) {
 	};
 }
 
-function ItemController($scope, $routeParams, $cookies, Items, Bids) {
+function ItemController($scope, $routeParams, $cookies, Items, Bids, Users, Categories) {
 	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
 		$scope.user_status = "You are not currently logged in as any user.";
 		$scope.UserID = '';
@@ -74,7 +98,10 @@ function ItemController($scope, $routeParams, $cookies, Items, Bids) {
 		$scope.UserID = $cookies.auctionbase_user;
 	}
 
-	$scope.item = Items.get({itemid: $routeParams.ItemID, closed: 1});
+	$scope.item = Items.get({itemid: $routeParams.ItemID, closed: 1}, function() {
+		$scope.seller = Users.get({UserID: $scope.item.UserID});
+	});
+	$scope.categories = Categories.query({itemid: $routeParams.ItemID});
 	$scope.bids = Bids.query({itemid: $routeParams.ItemID});
 
 	$scope.submit_bid = function() {

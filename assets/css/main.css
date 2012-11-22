@@ -40,6 +40,21 @@ li.navbar_active {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f9fe', endColorstr='#c4daf8',GradientType=0 ); /* IE6-9 */
 }
 
+.category_small {
+	width:100%;
+	height:40px;
+	margin-bottom:10px;
+	border:1px solid #548df8;
+	background: #f6f9fe; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f6f9fe 0%, #dfebfb 47%, #c4daf8 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f9fe), color-stop(47%,#dfebfb), color-stop(100%,#c4daf8)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f6f9fe 0%,#dfebfb 47%,#c4daf8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f6f9fe 0%,#dfebfb 47%,#c4daf8 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f6f9fe 0%,#dfebfb 47%,#c4daf8 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f6f9fe 0%,#dfebfb 47%,#c4daf8 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f9fe', endColorstr='#c4daf8',GradientType=0 ); /* IE6-9 */
+}
+
 .category_tiles {
 	text-align:center;
 	padding-top:11px;
