@@ -15,7 +15,7 @@ switch($_SERVER['REQUEST_METHOD']) {
 			header("HTTP/1.0 406");
 			die();
 		} else {
-			$bidamount = $json_data['Amount'] + 0;
+			$bidamount = round($json_data['Amount'] + 0, 2);
 		}
 
 		if(!isset($_COOKIE['auctionbase_user']) || empty($_COOKIE['auctionbase_user'])) {
