@@ -63,13 +63,17 @@ switch($_SERVER['REQUEST_METHOD']) {
 
 	case 'GET':
 
-		$sql = 'SELECT * FROM Bids WHERE 1 ';
+		$sql = 'SELECT Bids.*, Items.Name FROM Bids INNER JOIN Items ON(Bids.ItemID = Items.ItemID) WHERE 1 ';
 
 		if(isset($_GET['itemid'])) {
-			$sql .= 'AND ItemID = "'.$_GET['itemid'].'" ';
+			$sql .= 'AND Bids.ItemID = "'.$_GET['itemid'].'" ';
 		}
 
-		$sql .= ' ORDER BY Amount DESC ';
+		if(isset($_GET['userid'])) {
+			$sql .= 'AND Bids.UserID = "'.$_GET['userid'].'" ';
+		}
+
+		$sql .= ' ORDER BY Bids.Amount DESC ';
 
 		foreach($db->query($sql) as $row) {
 			$row['Amount'] = sprintf("%.2f", $row['Amount']);

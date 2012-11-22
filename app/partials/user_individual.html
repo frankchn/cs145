@@ -1,0 +1,53 @@
+<div style="clear:both;margin-top:20px;" ng-controller="UserController" class="container">
+	<div class="row">
+		<div class="span3">
+			<img src="http://placehold.it/270x200">
+		</div>
+		<div class="span9">
+			<h3>{{user.UserID}}</h3>
+			<p>Rating Points: {{user.Rating}}</p>
+			<p>Location: {{user.Location}}</p>
+			<p>Country: {{user.Country}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span6">
+			<h4>All Items</h4>
+			<table class="table table-condensed table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Item Name</th>
+						<th>Auction Ending</th>
+						<th>Current Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items">
+						<td><a href="#/item/{{item.ItemID}}">{{item.Name}}</a></td>
+						<td>{{item.Ends}}</td>
+						<td>${{item.CurrentPrice}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="span6">
+			<h4>Bids</h4>
+			<table class="table table-condensed table-bordered">
+				<thead>
+					<tr>
+						<th>Auction</th>
+						<th>Time</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="bid in bids">
+						<td><a href="#/item/{{bid.ItemID}}">{{bid.Name}}</a></td>
+						<td>{{bid.Time}}</td>
+						<td>${{bid.Amount}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

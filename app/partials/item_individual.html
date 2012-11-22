@@ -40,7 +40,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="bid in bids">
-						<td>{{bid.UserID}}</td>
+						<td><a href="#/user/{{bid.UserID}}">{{bid.UserID}}</a></td>
 						<td>{{bid.Time}}</td>
 						<td>${{bid.Amount}}</td>
 					</tr>
@@ -69,7 +69,7 @@
 		</div>
 		<div class="span3">
 			<h4>Seller Information</h4>
-			<p><strong>{{seller.UserID}}</strong> ({{seller.Rating}})</p>
+			<p><strong><a href="#/user/{{seller.UserID}}">{{seller.UserID}}</a></strong> ({{seller.Rating}})</p>
 			<p>Location: {{seller.Location}}, {{seller.Country}}</p>
 		</div>
 	</div>

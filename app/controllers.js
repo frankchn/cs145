@@ -42,6 +42,12 @@ function UserSearchController($scope, $route, $cookies, Users) {
 	$scope.search();	
 }
 
+function UserController($scope, $route, $routeParams, $cookies, Users, Items, Bids) {
+	$scope.user = Users.get({UserID: $routeParams.UserID});
+	$scope.items = Items.query({userid: $routeParams.UserID, closed: 1});
+	$scope.bids = Bids.query({userid: $routeParams.UserID, closed: 1});
+}
+
 function LoginController($scope, $route, $cookies, Users) {
 	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
 		$scope.current_status = "You are not currently logged in as any user.";
@@ -83,9 +89,10 @@ function ItemListController($scope, $routeParams, $cookies, Items, Categories) {
 		opt_min = $scope.minprice != undefined ? $scope.minprice : '';
 		opt_max = $scope.maxprice != undefined ? $scope.maxprice : '';
 		opt_items = $scope.numitems != undefined ? $scope.numitems : '';
+		opt_itemid = $scope.itemid != undefined ? $scope.itemid : '';
 		opt_closed = $scope.closed != undefined ? $scope.closed : 0;
 
-		$scope.items = Items.query({category: opt_category, closed: opt_closed, search: opt_search, min: opt_min, max: opt_max, numitems: opt_items});
+		$scope.items = Items.query({itemidlike: opt_itemid, category: opt_category, closed: opt_closed, search: opt_search, min: opt_min, max: opt_max, numitems: opt_items});
 	};
 }
 
