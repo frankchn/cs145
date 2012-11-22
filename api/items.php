@@ -30,7 +30,7 @@ switch($_SERVER['REQUEST_METHOD']) {
 
 		if(!isset($_GET['closed']) || ($_GET['closed'] != 1 && $_GET['closed'] != 'true')) {
 			$sql .= 'AND Ends >= "'.get_current_time().'" ';
-		}
+		} 
 
 		if(isset($_GET['itemid']) && !empty($_GET['itemid'])) {
 			$sql .= 'AND Items.ItemID = "'.$_GET['itemid'].'" ';
