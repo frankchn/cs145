@@ -107,6 +107,16 @@ function ItemController($scope, $routeParams, $cookies, Items, Bids, Users, Cate
 
 	$scope.item = Items.get({itemid: $routeParams.ItemID, closed: 1}, function() {
 		$scope.seller = Users.get({UserID: $scope.item.UserID});
+
+        imageSearch.setSearchCompleteCallback(this, function() {
+        	if (imageSearch.results && imageSearch.results.length > 0) {
+        		result = imageSearch.results[0];
+        		console.log(result);
+        		$('#item_image').attr('src', result.url);
+        	}
+        }, null);
+        // Find me a beautiful car.
+        imageSearch.execute($scope.item.Name);
 	});
 	$scope.categories = Categories.query({itemid: $routeParams.ItemID});
 	$scope.bids = Bids.query({itemid: $routeParams.ItemID});

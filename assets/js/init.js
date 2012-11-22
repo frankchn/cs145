@@ -13,3 +13,11 @@ var qs = (function(a) {
     return b;
 })(window.location.search.substr(1).split('&'));
 
+google.load('search', '1');
+var imageSearch;
+
+function GISOnLoad() {
+    imageSearch = new google.search.ImageSearch();
+    google.search.Search.getBranding('branding');
+}
+google.setOnLoadCallback(GISOnLoad);
