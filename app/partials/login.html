@@ -28,6 +28,38 @@
 		<div class="span6">
 			<h3>Registration</h3>
 			<p>You can register as a new user in the database.</p>
+			<div id="registererror" class="hide registerbox alert alert-error">
+				<strong>UserID exists</strong> There is already a user with this UserID or this UserID is invalid. Please choose another one and try again.
+			</div>
+			<div id="registersuccess" class="hide registerbox alert alert-success">
+				<strong>Success</strong> Your registration is successful. Try logging in.
+			</div>
+			<form ng-submit="register()" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label">UserID</label>
+					<div class="controls">
+						<input ng-model="UserID" type="text" placeholder="e.g. awesomeAuctionbaseUser">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Location</label>
+					<div class="controls">
+						<input ng-model="Location" type="text" placeholder="e.g. Palo Alto, CA">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Country</label>
+					<div class="controls">
+						<input ng-model="Country" type="text" placeholder="e.g. USA">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">&nbsp;</label>
+					<div class="controls">
+						<button type="submit" class="btn">Register</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

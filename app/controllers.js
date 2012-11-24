@@ -1,9 +1,16 @@
+function changeNavbar(n) {
+	$("ul.nav li").removeClass("navbar_active");
+	$("#navbar_" + n).addClass("navbar_active");
+}
+
 function FeaturedCategoriesController($scope, $cookies, Categories) {
+	changeNavbar("home");
 	$scope.categories = Categories.query({top: 6});
 	$scope.orderProp = 'CategoryID';
 }
 
 function AllCategoriesController($scope, $cookies, Categories) {
+	changeNavbar("categories");
 	$scope.categories = Categories.query();
 }
 
@@ -19,6 +26,8 @@ function CurrentTimeController($scope, $cookies, $route, Time) {
 }
 
 function UserSearchController($scope, $route, $cookies, Users) {
+	changeNavbar("users");
+
 	$scope.numitems = 20;
 	$scope.userid = '';
 	$scope.minrep = '';
@@ -43,16 +52,35 @@ function UserSearchController($scope, $route, $cookies, Users) {
 }
 
 function UserController($scope, $route, $routeParams, $cookies, Users, Items, Bids) {
+	changeNavbar("users");
+
 	$scope.user = Users.get({UserID: $routeParams.UserID});
 	$scope.items = Items.query({userid: $routeParams.UserID, closed: 1});
 	$scope.bids = Bids.query({userid: $routeParams.UserID, closed: 1});
 }
 
 function LoginController($scope, $route, $cookies, Users) {
+	changeNavbar("login");
+
 	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
 		$scope.current_status = "You are not currently logged in as any user.";
 	} else {
 		$scope.current_status = "You are currently logged in as " + $cookies.auctionbase_user + ".";
+	}
+
+	$scope.UserID = '';
+	$scope.Location = '';
+	$scope.Country = '';
+
+	$scope.register = function() {
+		Users.save({UserID: $scope.UserID, Location: $scope.Location, Country: $scope.Country},
+			function() {
+				$(".registerbox").hide();
+				$("#registersuccess").show();
+			}, function() {
+				$(".registerbox").hide();
+				$("#registererror").show();
+			})
 	}
 
 	$scope.login = function() {
@@ -73,6 +101,8 @@ function EndingSoonController($scope, $cookies, Items) {
 }
 
 function ItemListController($scope, $routeParams, $cookies, Items, Categories) {
+	changeNavbar("items");
+
 	$scope.CategoryID = -1;
 
 	if(typeof $routeParams.CategoryID != "undefined") {
@@ -97,6 +127,8 @@ function ItemListController($scope, $routeParams, $cookies, Items, Categories) {
 }
 
 function ItemController($scope, $routeParams, $cookies, Items, Bids, Users, Categories) {
+	changeNavbar("items");
+
 	if(typeof $cookies.auctionbase_user == "undefined" || $cookies.auctionbase_user == "") {
 		$scope.user_status = "You are not currently logged in as any user.";
 		$scope.UserID = '';

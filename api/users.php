@@ -22,6 +22,16 @@ switch($_SERVER['REQUEST_METHOD']) {
 					setcookie('auctionbase_user', $json_data['UserID'], 0, '/');
 				}
 			}
+		} else {
+			$stmt = $db->query("SELECT * FROM Users WHERE UserID = '".$json_data['UserID']."'");
+			$result = $stmt->fetch();
+
+			if(is_array($result) || empty($json_data['UserID'])) {
+				$status = 403;
+			} else {
+				$status = 200;
+				$db->query("INSERT INTO Users (UserID, Rating, Location, Country) VALUES ('".$json_data['UserID']."', 0, '".$json_data['Location']."', '".$json_data['Country']."');");
+			}
 		}
 
 		break;
