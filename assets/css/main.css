@@ -94,6 +94,10 @@ li.navbar_active {
 	padding-left:15px;
 }
 
+.bidtable>:first-child {
+	background-color:#DFF0D8;
+}
+
 .es_box {
 	padding:5px;
 	margin-bottom:10px;
