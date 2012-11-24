@@ -1,5 +1,7 @@
 I WOULD LIKE TO ENTER THE AUCTIONBASE CONTEST
 
+** NOTE: ** Please ensure that data and data/project.db are set to world-writable. The application will not function otherwise as it cannot write to the database.
+
 Basic Capability Descriptions
 =============================
 
