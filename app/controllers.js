@@ -3,6 +3,12 @@ function changeNavbar(n) {
 	$("#navbar_" + n).addClass("navbar_active");
 }
 
+function StatisticsController($scope, $cookies, Statistics) {
+	changeNavbar("statistics");
+
+	$scope.statistics = Statistics.get();
+}
+
 function FeaturedCategoriesController($scope, $cookies, Categories) {
 	changeNavbar("home");
 	$scope.categories = Categories.query({top: 6});
@@ -106,6 +112,7 @@ function ItemListController($scope, $routeParams, $cookies, Items, Categories) {
 	$scope.CategoryID = -1;
 
 	if(typeof $routeParams.CategoryID != "undefined") {
+		changeNavbar("categories");
 		$scope.CategoryID = $routeParams.CategoryID;
 		$scope.categories = Categories.query({category: $scope.CategoryID});
 	}

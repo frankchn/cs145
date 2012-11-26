@@ -1,0 +1,37 @@
+<div ng-controller="StatisticsController" style="clear:both" class="container">
+	<div class="row">
+		<div class="span12">
+			<h3>Statistics</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2">&nbsp;</div>
+		<div class="span8">
+			<table class="table span7 table-condensed table-bordered table-striped table-hover">
+				<tbody>
+					<tr>
+						<td>Users Registered</td>
+						<td style="text-align:right">{{statistics.users_registered}}</td>
+					</tr>
+					<tr>
+						<td>Total Auctions</td>
+						<td style="text-align:right">{{statistics.total_auctions}}</td>
+					</tr>
+					<tr>
+						<td>Open Auctions</td>
+						<td style="text-align:right">{{statistics.open_auctions}}</td>
+					</tr>
+					<tr>
+						<td>Lowest Bid Price</td>
+						<td style="text-align:right">${{statistics.min_bid}}</td>
+					</tr>
+					<tr>
+						<td>Highest Bid Price</td>
+						<td style="text-align:right">${{statistics.max_bid}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="span2">&nbsp;</div>
+	</div>
+</div>

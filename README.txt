@@ -68,6 +68,7 @@ Other features include:
 * Google Image Search integration - Integrated with Google Image Search to display the first result in a search of the title of the image in Google. Displays a placeholder if no results ar found.
 
 * Improved visual design
+* Basic statistics page
 * New user registration
 * Login mechanism for users
 * Listing of Popular Categories

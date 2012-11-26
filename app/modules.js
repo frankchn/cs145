@@ -53,4 +53,10 @@ function ($resource) {
 			params: {login: 1}
 		}
 	});
+})
+.factory(
+'Statistics',
+function ($resource) {
+	return $resource(
+		'api/statistics.php', {}, {});
 });

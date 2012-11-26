@@ -11,3 +11,13 @@ $raw_data = file_get_contents("php://input");
 $json_data = json_decode($raw_data, true);
 
 header('Content-type: application/json');
+
+foreach($_POST as $key => &$value) {
+	$value = addslashes($value);
+}
+unset($value);
+
+foreach($_GET as $key => &$value) {
+	$value = addslashes($value);
+}
+unset($value);
