@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AuctionBase Presentation</title>
+
+		<meta name="author" content="Frank Chen">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>AuctionBase</h1>
+					<h3>HTML5 + SPA + RESTful Web App</h3>
+					<p><a href="http://www.linkedin.com/profile/view?id=29172098&trk=tab_pro">Frank Chen</a> for CS145 (Fall 2012)</p>
+				</section>
+
+				<section>
+					<h1>2 Things</h1>
+				</section>
+
+				<section>
+					<h1>Demo</h1>
+					<h4><em>Bonus: responsive page design!</em></h4>
+				</section>
+
+				<section>
+					<section>
+						<h1>1</h1>
+						<h2>Single Page Application</h2>
+					</section>
+					<section>
+						<h2>What?</h2>
+						<p class="fragment">All core code (HTML, JavaScript, CSS) is loaded on first load.</p>
+						<p class="fragment">New HTML/JS code loaded on demand.</p>
+						<p class="fragment">Page never reloads during user interaction (not even for logins).</p>
+						<p class="fragment">Interactions may not involve servers (on the category page).</p>
+					</section>
+					<section>
+						<h2>Who?</h2>
+						<div style="padding-top:30px">
+							<h3 class="fragment">Facebook</h3>
+							<h3 class="fragment">Gmail</h3>
+							<h3 class="fragment">Twitter</h3>
+							<h3 class="fragment">Pinterest</h3>
+							<h3 class="fragment">lots more...</h3>
+						</div>
+					</section>
+					<section>
+						<h2>Why?</h2>
+						<p class="fragment"><strong>User Experience</strong> &mdash; Page redraws disrupts user experience and stable UI tools continually disappear and reappear.</p>
+						<p class="fragment"><strong>Performance</strong> &mdash; Complete page reloads are slow as I have to reload all the elements in the site.</p>
+					</section>
+					<section>
+						<h2>How?</h2>
+						<p class="fragment">Use a framework. They make your life much easier.</p>
+						<p class="fragment"> I used <strong><a href="http://www.angularjs.org">AngularJS</a></strong> from Google.</p>
+					</section>
+					<section>
+						<h2>Routes</h2>
+						<pre><code contenteditable>config(['$routeProvider', function($routeProvider) {
+$routeProvider.
+	when('/category/:CategoryID', {templateUrl: 'app/partials/item.html'}).
+	when('/readme', {templateUrl: 'app/partials/readme.html'}).
+	when('/login', {templateUrl: 'app/partials/login.html'}).
+	when('/item', {templateUrl: 'app/partials/item.html'}).
+	when('/user/:UserID', {templateUrl: 'app/partials/user_indv.html'}).
+	...
+	otherwise({redirectTo: '/'});
+});</code></pre>
+					</section>
+					<section>
+						<h2>Templates</h2>
+						<pre><code contenteditable>&lt;div ng-controller=&quot;UserSearchController&quot; style=&quot;clear:both&quot; class=&quot;container&quot;&gt;<br/>  &lt;div class=&quot;row&quot;&gt;<br/>    &lt;div class=&quot;span9&quot;&gt;<br/>      &lt;h3&gt;{{user.UserID}}&lt;/h3&gt;<br/>      &lt;p&gt;Rating: {{user.Rating}}&lt;/p&gt;<br/>    &lt;/dv&gt;<br/>  &lt;/div&gt;<br/>  ...<br/>  &lt;div class=&quot;span6&quot;&gt;<br/>    &lt;table class=&quot;table table-condensed table-bordered&quot;&gt;<br/>       &lt;tr ng-repeat=&quot;bid in bids&quot;&gt;<br/>         &lt;td&gt;&lt;a href=&quot;#/item/{{bid.ItemID}}&quot;&gt;{{bid.Name}}&lt;/a&gt;&lt;/td&gt;<br/>         &lt;td&gt;{{bid.Time}}&lt;/td&gt;<br/>         &lt;td&gt;${{bid.Amount}}&lt;/td&gt;<br/>       &lt;/tr&gt;<br/>    &lt;/table&gt;<br/>  &lt;/div&gt;<br/>&lt;/div&gt;<br/></code></pre>
+					</section>
+					<section>
+						<h2>Controller</h2>
+						<pre><code contenteditable>function UserController($scope, $route, $routeParams, $cookies, Users, Items, Bids) {
+	changeNavbar("users");
+
+	$scope.user = Users.get({UserID: $routeParams.UserID});
+	$scope.items = Items.query({userid: $routeParams.UserID, closed: 1});
+	$scope.bids = Bids.query({userid: $routeParams.UserID, closed: 1});
+}</code></pre>
+					</section>
+					<section>
+						<h2>Models</h2>
+						<pre><code contenteditable>angular.module('abServices', ['ngResource', 'ngCookies']).factory(
+'Users',
+function ($resource) {
+	return $resource(
+		'api/users.php', {}, {
+		login: {
+			method: 'POST',
+			params: {login: 1}
+		}
+	});
+});</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>2</h1>
+						<h2>RESTful Backend</h2>
+					</section>
+					<section>
+						<p>The AngularJS models need a communication end-point on the server side &mdash; somewhere to retrieve and store the data.</p>
+					</section>
+					<section>
+						<h3>Representational State Transfer (REST)</h3>
+						<p class="fragment">Style of software architecture and communication.</p>
+						<p class="fragment">Makes APIs clean and consumable across multiple platforms.</p>
+						<p class="fragment">Usually uses <strong>JSON</strong> to exchange data.</p>
+					</section>
+					<section>
+						<h3>Example &mdash; Bids</h3>
+						<p class="fragment">What actions do we want to take?</p>
+						<ul class="fragment">
+							<li>Retrieve all bids</li>
+							<li>Make a new bid</li>	
+							<li>Delete a bid</li>
+							<li>Modify a current bid</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Convert to HTTP Verbs / URL</h3>
+						<table>
+							<tr>
+								<td>Retrieve bids for item</td>
+								<td>&nbsp;&nbsp;</td>
+								<td><code>GET /api/bids?ItemID=X</code></td>
+							</tr>
+							<tr>
+								<td>Make a new bid</td>
+								<td>&nbsp;&nbsp;</td>
+								<td><code>POST /api/bids?ItemID=X</code></td>
+							</tr>
+							<tr>
+								<td>Delete a bid</td>
+								<td>&nbsp;&nbsp;</td>
+								<td><code>DELETE /api/bids/*BidID*	</code></td>
+							</tr>
+							<tr>
+								<td>Modify a current bid</td>
+								<td>&nbsp;&nbsp;</td>
+								<td><code>PATCH /api/bids/*BidID*</code></td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<div><code>GET /api/bids?ItemID=1049208273</code></div>
+						<h4 style="padding-top:30px">HTTP Response</h4>
+						<pre><code contenteditable>[
+  {"ItemID":"1049208273","0":"1049208273","UserID":"asdf","1":"asdf","Time":"2001-12-21 00:00:30","2":"2001-12-21 00:00:30","Amount":"20.00","3":"20","Name":"SUPERMAN LUNCH BOX '98 ORNAMENT","4":"SUPERMAN LUNCH BOX '98 ORNAMENT"},
+  {"ItemID":"1049208273","0":"1049208273","UserID":"asdf","1":"asdf","Time":"2001-12-21 00:00:30","2":"2001-12-21 00:00:30","Amount":"15.00","3":"15","Name":"SUPERMAN LUNCH BOX '98 ORNAMENT","4":"SUPERMAN LUNCH BOX '98 ORNAMENT"},
+  {"ItemID":"1049208273","0":"1049208273","UserID":"asdf","1":"asdf","Time":"2001-12-21 00:00:30","2":"2001-12-21 00:00:30","Amount":"10.00","3":"10","Name":"SUPERMAN LUNCH BOX '98 ORNAMENT","4":"SUPERMAN LUNCH BOX '98 ORNAMENT"}
+]</code></pre>
+					</section>
+					<section>
+						<div><code>POST /api/bids?ItemID=1049208273</code></div>
+						<h4 style="padding-top:30px">HTTP Request</h4>
+						<pre><code contenteditable>{"ItemID":"1049208273","Amount":"25"}</code></pre>
+					</section>
+
+					<section>
+						<h3>Backend</h3>
+						<pre><code contenteditable>switch($_SERVER['REQUEST_METHOD']) {
+	case 'POST':
+		if(!isset($json_data['ItemID'])) {
+			header("Status: 400"); // Bad Request
+			header("HTTP/1.0 400");
+			die();
+		}
+		/* ... */
+		$db->query(...);
+		break;
+	case 'GET':
+		$sql = '...';
+		foreach($db->query($sql) as $row) {
+			$return[] = $row;
+		}
+		break;
+}
+
+echo json_encode($return);</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h3>Technologies / Frameworks Used</h3>
+					<p>jQuery</p>
+					<p>Twitter Bootstrap</p>
+					<p>AngularJS</p>
+					<p>PHP</p>
+					<p>SQLite</p>
+				</section>
+
+				<section>
+					<h2>Questions?</h2>
+					<p>Email me at <a href="mailto:frankchn@gmail.com">frankchn@gmail.com</a>.</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'zoom', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
